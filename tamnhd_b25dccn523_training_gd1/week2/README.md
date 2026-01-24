@@ -1,444 +1,209 @@
 # [Nguyen Hoang Duc Tam - B25DCCN523] Training Basic - Week 2
 
-## Background knowledge
+## Phần 1: Java
+### 1. Cài đặt JDK và Netbeans
+### 2. Làm quen với kiểu dữ liệu và cú pháp
+#### a. Input, output, khai báo cơ bản
+```Java
+// Cách comment tương tự với C++ 
+Scanner sc = new Scanner(System.in);
+int a = sc.nextInt();
+System.out.print("Ham print co kha nang noi string " + a + "\n");
+System.out.println("TYP");
+System.out.printf("%s", "printf dung dac ta nhu C");
+```
+#### b. Kiểu dữ liệu
 
-- Sử dụng cơ bản XAMPP/AMPPS để host các backend project php
-- Sử dụng phpmyadmin để quản trị một số database rất cơ bản
+- Cách khai báo biến tương tự như C++
+- Ở đây các kiểu dữ liệu gần tương tự với C++ nên em sẽ không đi quá sâu vào nữa (int, long long - long, int, float, double, bool - boolean, String).
+- Ép kiểu long ta dùng dùng 1L, dùng (long), (int), (float), ...
+- Java sẽ không tự động ép từ kiểu dữ liệu có độ chính xác lớn hơn -> kiểu dữ liệu có độ chính xác bé hơn.
+```Java
+int t = 1.0; // Error
+int t1 = (int) 1.0 // Working
+```
+- Với const ta define như sau:
+```Java
+final int MOD = (int)1e9 + 7;
+```
+#### c. Câu lệnh điều kiện - toán tử logic
+- Java không cho phép sử dụng 0 - 1 thay cho boolean, bắt buộc dùng ```false``` và ```true```
+- ```if```, ```else```, ```else if```, toán tử 3 ngôi, ```switch case``` hoàn toàn tương tự với C++.
+- Một vài hàm toán thường dùng như ```max```, ```min```, ```sqrt```, ```pow```, ```abs```, ```round```, ```ceil```, ```floor```.
+```Java
+System.out.print(Math.sqrt(2));
+```
+#### d. Mảng 1 chiều, 2 chiều
+- Java sử dụng 0-index array
+- Cách khai báo mảng 1 chiều trong Java
+```Java
+int[] prime = {2, 3, 5, 7};
 
-## Phần 1: Database (Tập trung vào CSDL quan hệ)
+Scanner sc = new Scanner(System.in);
 
-### 1. Cài đặt DBMS
-
-Em cài và sử dụng MySQL Server và Workbench version 8.0. MySQL sẽ sử dụng keyword và syntax khác với Microsoft SQL (T-SQL)
-
-### 2. Các câu lệnh cơ bản với SQL
-
-MySQL là một ngôn ngữ case-insensitive, keyword có thể là UPPERCASE, lowercase, Capital. Nhưng để dễ phân biệt ta sẽ thường dùng UPPERCASE cho keyword.
-
-#### Tạo CSDL
-
-```sql
-CREATE DATABASE DataBaseName;
+int[] arr = new int[4]; 
+for(int i = 0; i < 3; ++i)
+    arr[i] = sc.nextInt();
 ```
 
-#### Xoá CSDL
+#### e. Vòng lặp
+- Hoàn toàn tương tự với C++, ```for```, ```while```, ```do-while```, ```break```, ```continue```, ...
 
-```sql
-DROP DATABASE DataBaseName;
+#### f. Hàm
+
+- Nếu chưa đi sâu vào OOP thì ta có thể dùng hàm 1 cách đơn giản như sau, trong cùng 1 class
+```Java
+public class testJava 
+{
+    public static boolean isPrime(int a)
+    {
+        for(int i = 2; i * i <= a; ++i)
+            if(a % i == 0)
+                return false;
+        return a > 1;
+    }
+    
+    public static void main(String[] args) 
+    {
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        System.out.println(isPrime(a) ? "YES" : "NO");
+    }
+}
 ```
+D25 chưa học OOP nên trên codePTIT chưa cấp bài ạ.
+
+
+# Phần 2: Database (Thiết kế lược đồ E-R)
+1. **Hiểu các khái niệm**
+- Entity, Attribute, Relationship, Cardinality
+2. **Relationship**
+- Các loại quan hệ:
+    - 1 - N (One-to-Many)
+    - 1 - 1 (One-to-One)
+    - N - N (Many-to-Many)
+3. **Vẽ sơ đồ E-R**
+
+#### Output: E-R của hệ thống **Quản lý Cửa Hàng Bán Hoa Offline**
+- Ảnh chụp, giải thích
+- Docs các khái niệm chi tiết
+
+## Phần 2: Database (Thiết kế lược đồ E-R)
+### 1. Các khái niệm
+#### a. Entity
+- Entity (thực thể) là các đối tượng được miêu tả qua data, ví dụ *Nhân viên*, *Khách hàng*, *Công ty*, được miêu tả trong ERD bằng hình chữ nhật.
+- Strong entity (thực thể mạnh) là loại thực thể có 1 thuộc tính key, thực thể mạnh tồn tại riêng biệt.
+- Weak entity (thực thể yếu) là loại thực thể không có thuộc tính key, sự tồn tại phụ thuộc vào 1 strong entity, được ký hiệu bằng hình chữ nhật đôi.
+- Entity set (tập thực thể) là tập các thực thể có chung kiểu, ví dụ tập *D25* chứa các thực thể có chung kiểu *sinh viên*.
+  
+<p align="center">
+<img align="center" src="res/1.svg">
+</p>
+
+#### b. Attribute
+- Attribute (thuộc tính) là các đặc tính, đặc điểm của một entity, ví dụ với *Sinh viên*, ta có các attribute như *Mã SV*, *Số CCCD*, *Họ và tên*, *Ngày sinh*,... Attribute được miêu tả trong ERD bằng hình oval
+- Key attribute có thể dùng để phân biệt đôi một các entity trong một entity set, thuộc tính key phải đảm bảo giá trị unique giữa các thực thể. Ví dụ *Số CCCD* là thuộc tính key cho entity set chứa toàn bộ người VN. Được ký hiệu bằng hình oval, với tên được gạch dưới.
+- Composite attribute (thuộc tính phức) được cấu thành từ nhiều thuộc tính con nhỏ hơn. 
+- Multivalued attribute là loại thuộc tính có thể đồng thời chứa nhiều giá trị trên một thực thể như *SDT*, được ký hiệu bằng hình oval đôi.
+- Derived attribute (thuộc tính phái sinh) là thuộc tính mà giá trị của nó có thể được suy ra từ thuộc tính khác, ví dụ *tuổi* được suy ra từ *ngày sinh*, được ký hiệu bằng hình oval nét đứt.
+
+<p align="center">
+<img align="center" src="res/2.svg">
+</p>
+<br><br><br>
+<p align="center">
+<img align="center" src="res/3.svg">
+</p>
+
+#### c. Relationship
+- Relationship (quan hệ) thể hiện sự liên kết giữa các thực thể, được ký hiệu bằng hình thoi.
+
+<p align="center">
+<img align="center" src="res/4.svg">
+</p>
+
+- Weak relationship (quan hệ yếu), là quan hệ giữa thực thể yếu, và thực thể mà nó phụ thuộc, ký hiệu bằng hình thoi đôi.
+  
+<p align="center">
+<img align="center" src="res/5.svg">
+</p>
+
+- Tập quan hệ là tập hợp các quan hệ cùng loại giữa các tập thực thể.
+##### i. Degree of a Relationship Set
+
+1. Quan hệ đệ quy
+   - Là loại quan hệ chỉ có 1 loại thực thể tham gia.
+
+<p align="center">
+<img align="center" src="res/6.svg">
+</p>
+
+2. Quan hệ nhị phân
+   - Là loại quan hệ có 2 loại thực thể đồng thời tham gia.
+   
+<p align="center">
+<img align="center" src="res/7.svg">
+</p>
+
+1. Quan hệ tam phân (Ternary Relationship)
+   - Tương tự với 2 loại trước đó khi có 3 loại thực thể đồng thời tham gia vào quan hệ.
+
+2. **Quan hệ n-phân (N-ary Relationship)**
+   - Tương tự khi có 3 loại thực thể đồng thời tham gia vào quan hệ ta gọi là tam phân, n loại gọi là n-phân.
+#### d. Cardinality
+- Cardinality (bản số) là số lần mà loại thực thể đó được tham gia tối đa trong quan hệ.
+1. Quan hệ 1 - 1
+   - Ví dụ mỗi sinh viên chỉ được cấp một thẻ sinh viên, và thẻ sinh viên đó cũng chỉ sẽ được cấp cho một người duy nhất.
+
+<p align="center">
+<img align="center" src="res/8.svg">
+</p>
+
+2. Quan hệ 1 - n
+- Ví dụ một khoa có thể có nhiều giáo viên, nhưng mỗi giáo viên chỉ được thuộc duy nhất một khoa.
+
+<p align="center">
+<img align="center" src="res/9.svg">
+</p>
+
+1. Quan hệ n - 1.
+- Ví dụ nhiều một lớp học có thể được dạy bởi 1 giáo viên.
+
+<p align="center">
+<img align="center" src="res/10.svg">
+</p>
 
-#### Đặt chế độ read-only cho CSDL
 
-```sql
-ALTER DATABASE DataBaseName READ ONLY = 0/1;
-```
+1. Quan hệ n - n.
+- Một lớp có thể được tham gia bởi nhiều sinh viên, một sinh viên cũng có thể tham gia nhiều lớp.
 
-#### Sử dụng CSDL
+<p align="center">
+<img align="center" src="res/11.svg">
+</p>
 
-Trong khi sử dụng các câu lệnh cần nêu rõ việc sử dụng CSDL nào
 
-```sql
-USE DataBaseName;
-```
+##### e. Ràng buộc tham gia
+- Tham gia toàn phần là khi toàn bộ thực thể trong tập thực thể đều tham gia vào quan hệ đó. Được biểu diễn bằng đường nối đôi.
 
-#### Tạo bảng với các cột
+<p align="center">
+<img align="center" src="res/12.svg">
+</p>
 
-```sql
-CREATE TABLE table_name (
-    column_name1 datatype1,
-    column_name2 datatype2,
-    ...
-);
-```
+- Tham gia một phần là khi thực thể bất kì trong tập thực thể có thể tham gia, hoặc không tham gia vào quan hệ.
 
-**Ví dụ:**
+### 2. ERD của tiệm hoa Offline
 
-```sql
-CREATE TABLE Library (
-    book_id VARCHAR(30),
-    book_name VARCHAR(150),
-    in_stock INT
-);
-```
+<p align="center">
+<img align="center" src="res/final.svg">
+</p>
 
-#### Một vài kiểu dữ liệu thường dùng
+#### Giải thích:
+1. Quan hệ 1-n giữa Khách hàng và Đơn hàng vì mỗi đơn hàng chỉ thuộc về 1 khách hàng, 1 khách hàng có thể sở hữu nhiều đơn hàng. Quan hệ n-n dành cho quan hệ Đơn hàng và Hoa vì 1 đơn hàng có thể chứa nhiều loại hoa, và 1 loại hoa có thể đồng thời có trong nhiều đơn hàng (với điều kiện là còn đủ hàng).
+2. Tổng tiền là thuộc tính phái sinh do có thể tính ra từ đơn giá và số lượng. SĐT là thuộc tính multivalued
 
-| Kiểu dữ liệu | Nội dung |
-|---|---|
-| `INT` | Số nguyên |
-| `BIT` | BOOLEAN |
-| `DECIMAL` | Số thập phân với số lượng chữ số sau dấu phẩy xác định (Thường dùng cho tiền tệ) |
-| `FLOAT` | Số thập phân |
-| `VARCHAR(MAXCHAR)` | Chuỗi có xác định độ dài max |
-| `TEXT` | Chuỗi không xác định độ dài max |
-| `DATE` | YYYY-MM-DD |
-| `TIME` | HH-MM-SS |
-| `DATETIME` | YYYY-MM-DD HH-MM-SS |
-
-#### Chọn/xem nội dung trong 1 bảng
-
-```sql
-SELECT * FROM table_name;
-```
-
-#### Đổi tên 1 bảng
-
-```sql
-RENAME TABLE OriginalName TO NewName;
-```
-
-#### Xoá 1 bảng
-
-```sql
-DROP TABLE table_name;
-```
-
-#### Sửa các phần config của bảng
-
-Để sửa các phần config của bảng ta dùng:
-
-```sql
-ALTER TABLE table_name
-COMMAND;
-```
-
-**Một vài lệnh:**
-
-Đổi tên cột:
-```sql
-RENAME COLUMN OriginalName TO NewName;
-```
-
-Thêm cột:
-```sql
-ADD column_name datatype;
-```
-
-Xoá cột:
-```sql
-DROP COLUMN column_name;
-```
-
-Sửa kiểu dữ liệu cho cột:
-```sql
-MODIFY COLUMN column_name datatype;
-```
-
-#### Di chuyển vị trí các cột
-
-```sql
-ALTER TABLE table_name
-MODIFY column_name datatype
-location_command;
-```
-
-**Location command:**
-
-```sql
-AFTER column_name
-```
-
-```sql
-FIRST
-```
-
-#### Lệnh `INSERT`
-
-```sql
-INSERT INTO table_name
-VALUES (val1, val2, val3, ...),
-       (val7, val8, val9, ...);
-```
-
-Với mỗi cặp dấu `()` ta đang thêm vào bảng 1 dòng, các giá trị `val1, val2, val3,...` phải được đồng thời lineup với thứ tự các cột hiện tại trong bảng.
-
-Với cách làm trên ta phải nhớ thứ tự cột và đồng thời thêm giá trị vào tất cả các cột. Nếu ta chỉ muốn thêm giá trị vào 1 số cột nhất định ta làm như sau:
-
-```sql
-INSERT INTO table_name(col1, col2, col3)
-VALUES (val1, val2, val3),
-       (val4, val5, val6);
-```
-
-#### Lệnh `SELECT`
-
-```sql
-SELECT location FROM table_name;
-```
-
-```sql
-SELECT location FROM table_name WHERE condition;
-```
-
-**Ví dụ:**
-
-```sql
-SELECT * FROM Library;
-SELECT book_id, book_name FROM Library;
-SELECT * FROM Library WHERE copy_in_stock >= 5;
-```
-
-#### Lệnh `UPDATE`
-
-```sql
-UPDATE table_name
-SET col1 = val1, col2 = val2, ...
-WHERE condition;
-```
-
-#### Lệnh `DELETE`
-
-```sql
-DELETE FROM table_name
-WHERE condition;
-```
-
-**Lưu ý:** Tuyệt đối không viết thiếu `WHERE` trong câu lệnh `UPDATE` và `DELETE` vì sẽ gây ảnh hưởng đến toàn bảng.
-
----
-
-### `PROCEDURE` và `FUNCTION`
-
-`PROCEDURE` được thiết kế để thực hiện các hành động như `INSERT`, `UPDATE`, `DELETE` cho dữ liệu trong bảng.
-
-`FUNCTION` được thiết kế để trả về kết quả cho các tính toán.
-
-#### Tạo PROCEDURE
-
-```sql
-CREATE PROCEDURE procedure_name(arg)
-BEGIN
-    COMMANDS;
-END;
-```
-
-Nhưng nếu viết như thế này ta sẽ gặp lỗi vì MySQL sẽ dừng lại tại dấu `;` mà nó gặp. Ta cần khai báo lại delimiter bằng câu lệnh:
-
-```sql 
-DELIMITER + delimiter_char
-```
-
-**Ví dụ:**
-
-```sql
-DELIMITER // -- Set delimiter thành //
-CREATE PROCEDURE procedure_name()
-BEGIN
-    COMMANDS;
-END // 
-DELIMITER ; -- Trả về gốc
-```
-
-Để gọi PROCEDURE ta dùng:
-
-```sql
-CALL procedure_name();
-```
-
-**Ví dụ cụ thể:**
-
-```sql
-DELIMITER //
-CREATE PROCEDURE tim_sach(IN id VARCHAR(30))
-BEGIN
-    SELECT * FROM Library WHERE book_id = id;
-END //
-DELIMITER ;
-
-CALL tim_sach('PTIT001');
-```
-
-```sql
-DELIMITER //
-CREATE PROCEDURE loai_sach(
-    IN id VARCHAR(30),
-    OUT loai VARCHAR(30)
-)
-BEGIN
-    DECLARE n_pages INT;
-    SELECT pages INTO n_pages FROM Library WHERE book_id = id;
-    IF n_pages <= 300 THEN
-        SET loai = 'Sach mong';
-    ELSEIF n_pages <= 500 THEN
-        SET loai = 'Sach trung binh';
-    ELSE 
-        SET loai = 'Sach day';
-    END IF;
-END //
-DELIMITER ;
-
-CALL loai_sach('PTIT001', @loai); -- Với các biến output, ta cần thêm @ ở trước nó
-SELECT @loai AS book_type;
-```
-
-#### Tạo FUNCTION
-
-Để khai báo FUNCTION, FUNCTION thì bắt buộc phải có trả về giá trị:
-
-```sql
-DELIMITER //
-CREATE FUNCTION function_name(arg)
-RETURNS datatype
-[NOT] DETERMINISTIC 
-NO SQL / READS SQL DATA / MODIFIES SQL DATA
-BEGIN
-    COMMANDS;
-    RETURN ....;
-END // 
-DELIMITER ; 
-```
-
-**Giải thích các thuộc tính:**
-
-**`DETERMINISTIC`**: Tính xác định, tức là khi cùng 1 input sẽ trả luôn luôn cùng 1 kết quả. Ví dụ hàm tính thuế. Kết quả của hàm có thể được cache. Các function có các hàm như `RAND()`, `NOW()` không được xem là hàm có tính xác định. Nếu không được define thì giá trị mặc định là `NOT DETERMINISTIC`.
-
-**`NO SQL`**: Hàm không sử dụng các lệnh liên quan CSDL, chỉ đơn thuần tính toán. Thường được kết hợp với `DETERMINISTIC`.
-
-**`READS SQL DATA`**: Hàm chỉ sử dụng data từ CSDL, nếu được kết hợp cùng `DETERMINISTIC` kết quả hàm có thể được cache và sẽ được update khi giá trị trong CSDL thay đổi.
-
-**`MODIFIES SQL DATA`**: Hàm có bao gồm các câu lệnh có thể write data vào CSDL. Thường kết hợp với `READS SQL DATA`.
-
-Trong 1 function, nhất định phải define 1 trong 3 command sau nếu không sẽ gây lỗi: `DETERMINISTIC`, `NO SQL`, `READS SQL DATA`.
-
-FUNCTION không thể được gọi bằng `CALL`, ta thường kết hợp FUNCTION với `SELECT`.
-
-**Ví dụ:**
-
-```sql
-DELIMITER // 
-CREATE FUNCTION so_trang(id VARCHAR(30))
-RETURNS INT
-READS SQL DATA
-BEGIN
-    DECLARE res INT;
-    SELECT pages INTO res FROM library WHERE book_id = id;
-    RETURN res;
-END // 
-DELIMITER ; 
-
-SELECT so_trang('PTIT001');
-```
-
----
-
-### `TRIGGER`
-
-`TRIGGER` là một tập lệnh sẽ được tự động gọi khi có một điều kiện được đáp ứng (dữ liệu thay đổi, thêm dòng, xoá dòng, v.v). `TRIGGER` được define như sau:
-
-```sql
-DELIMITER //
-
-CREATE TRIGGER trigger_name
-[BEFORE/AFTER] [INSERT/UPDATE/DELETE] ON table_name      
-FOR EACH ROW                   
-BEGIN
-    COMMANDS;
-END //
-
-DELIMITER ;
-```
-
-#### `BEFORE` / `AFTER`
-
-**`BEFORE`**: Với lệnh `BEFORE` ta có thể thay đổi được dữ liệu trước khi ghi vào CSDL.
-
-**`AFTER`**: Với lệnh `AFTER` ta không thể thay đổi được cách dữ liệu, nên dùng lệnh này cho việc logging sang các bảng khác.
-
-Trong các câu lệnh, ta có thể dùng `OLD.col_name` hoặc `NEW.col_name`, để sử dụng các giá trị trước và sau khi thay đổi của cột đó. Tất yếu `OLD` chỉ dùng trong câu lệnh `UPDATE` và `DELETE`, `NEW` chỉ dùng trong `INSERT` và `UPDATE`.
-
-**Ví dụ:**
-
-```sql
-DELIMITER //
-
-CREATE TRIGGER book_insert
-BEFORE INSERT ON library
-FOR EACH ROW
-BEGIN
-    SET NEW.copy_in_stock = NEW.total_copy;
-END //
-
-DELIMITER ;
-```
-
----
-
-### `AUTOCOMMIT`, `COMMIT`, `ROLLBACK`
-
-Sẽ khá nguy hiểm cho CSDL nếu chúng ta làm việc trực tiếp, nên ta có thể tự cứu sống mình bằng câu lệnh sau:
-
-Đầu tiên tạo 1 SAVE POINT tại điểm bắt đầu (tạm hiểu như 1 bản backup của server ngay tại lúc chạy câu lệnh):
-
-```sql
-START TRANSACTION;
-```
-
-Nếu ta cần tạo 1 SAVE POINT khác trong quá trình xử lí ngoài điểm bắt đầu ta dùng:
-
-```sql
-SAVEPOINT savepoint_name;
-```
-
-Sau đó ta thực hiện các lệnh như bình thường. Nếu các lệnh ta thực hiện đều đúng, ta dùng:
-
-```sql
-COMMIT;
-```
-
-để lưu vĩnh viễn tất cả thay đổi kể từ khi `START TRANSACTION`.
-
-Nếu sai:
-
-```sql
-ROLLBACK;
-```
-
-để đưa CSDL về điểm bắt đầu, hoặc:
-
-```sql
-ROLLBACK TO savepoint_name;
-```
-
-để đưa về 1 SAVE POINT khác.
-
-**Lưu ý:** Có một số câu lệnh sẽ nằm ngoài `TRANSACTION`: `CREATE`, `ALTER`, `DROP`, `GRANT`, `REVOKE`. Thực thi những câu lệnh này thì sẽ không có điểm quay đầu.
-
----
-
-### `GRANT`, `REVOKE`
-
-Khi thêm 1 user mới vào để quản trị CSDL, mặc định user sẽ không được cấp bất cứ quyền gì. `GRANT` để cấp quyền, `REVOKE` để thu hồi.
-
-```sql
-GRANT privilege_name ON database_name.table_name TO 'username'@'host';
-```
-
-```sql
-REVOKE privilege_name ON database_name.table_name FROM 'username'@'host';
-```
-
-**privilege_name**: `SELECT`, `INSERT`, `UPDATE`, `DELETE`, `EXECUTE` (`PROCEDURE` | `FUNCTION`), `CREATE`, `DROP`, `ALTER`, `GRANT`, `ALL` (trừ `GRANT`)
-
-**Check quyền:**
-
-```sql
-SHOW GRANTS FOR 'username'@'host'; 
-```
-
----
-
-### Toán tử truy vấn
-
-- **`FROM`**: Xác định nguồn dữ liệu
-- **`WHERE`**: Lọc dữ liệu theo cột
-- **`GROUP BY`**: Lọc các dòng có chung giá trị cột và ghép thành nhóm
-- **`HAVING`**: Tương tự `WHERE`, dùng khi đã `GROUP BY`
-- **`ORDER BY`**: Sắp xếp `ASC` hoặc `DESC`
-- **`AND`, `OR`, `NOT`**: Các phép boolean
-- **`BETWEEN ... AND ...`**: Lấy các giá trị trong đoạn
-- **`IN(val1, val2, ...)`**: Lấy các giá trị trong danh sách
-- **`IS NULL`, `IS NOT NULL`**: Kiểm tra giá trị trống (vì không dùng toán tử so sánh `=` được với `NULL`)
-
+#### Hạn chế của ERD này
+1. Hơi oversimplify.
+2. Chưa có cơ chế rõ ràng cho việc ghi lại chi tiết đơn hàng.
 ---
 
 Em viết file này dựa trên quá trình tự tìm hiểu các tài liệu nước ngoài kết hợp với hỗ trợ từ AI. Vì kiến thức tự học đôi khi còn hạn chế, em rất mong nhận được những nhận xét từ anh/chị để hoàn thiện hơn. Cảm ơn anh/chị đã review bài cho em. Hy vọng sớm có dịp được cộng tác và học hỏi thêm từ anh/chị!
