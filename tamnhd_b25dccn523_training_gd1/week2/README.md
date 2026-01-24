@@ -73,21 +73,6 @@ public class testJava
 ```
 D25 chưa học OOP nên trên codePTIT chưa cấp bài ạ.
 
-
-# Phần 2: Database (Thiết kế lược đồ E-R)
-1. **Hiểu các khái niệm**
-- Entity, Attribute, Relationship, Cardinality
-2. **Relationship**
-- Các loại quan hệ:
-    - 1 - N (One-to-Many)
-    - 1 - 1 (One-to-One)
-    - N - N (Many-to-Many)
-3. **Vẽ sơ đồ E-R**
-
-#### Output: E-R của hệ thống **Quản lý Cửa Hàng Bán Hoa Offline**
-- Ảnh chụp, giải thích
-- Docs các khái niệm chi tiết
-
 ## Phần 2: Database (Thiết kế lược đồ E-R)
 ### 1. Các khái niệm
 #### a. Entity
