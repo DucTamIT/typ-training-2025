@@ -1,28 +1,5 @@
 # [Nguyen Hoang Duc Tam - B25DCCN523] Training Basic - Week 3
 
-# Phần 1: Java
-1. ### Ôn tập
-- Mảng 1 chiều, 2 chiều
-- Vòng lặp 
-2. ### Sort & Comparator
-3. ### Set, Map
-
-### Output
-- Nộp tài liệu nghiên cứu
-
-# Phần 2: Database (Thiết kế lược đồ E-R)
-
-Thiết kế E-R cho bài toán sau:
-- Chú ý dùng thực thể yếu cho Người phụ thuộc
-- Chú ý sử dụng Đệ quy khi thiết kế
-- Bổ sung các thuộc tính cần thiết
-
-![alt text](<Đề bài.png>)
-
-### Output:
-- Nộp ảnh Thiết kế E-R xoay ngang
-
-
 ## Phần 1: Java
 1. ### Ôn tập
 - Không quá khó do hoàn toàn tương tự với C++
@@ -40,202 +17,181 @@ for(int i = 0; i < n; ++i)
     for(int j = 0; j < m; ++j)
         arr2D[i][j] = sc.nextInt();
 ```
+2. ### Kiểu dữ liệu nguyên thuỷ và object
+- Trong Java, các kiểu `byte`, `short`, `int`, `long`, `float`, `double`, `boolean` và `char` là kiểu dữ liệu nguyên thuỷ, ```String``` không phải là kiểu dữ liệu nguyên thuỷ.
 
-2. ### Sort & Comparator
+|   | Nguyên thuỷ | Object |
+|---|---|---|
+| Phân biệt | Viết thường chữ cái đầu | Viết hoa chữ cái đầu| 
+| Lưu | Lưu giá trị của biến (stack) | Lưu địa chỉ trỏ đến giá trị của biến (ở heap) |
+| Gắn giá trị | Không thể | Có thể |
+| Tốc độ | Nhanh hơn | Chậm hơn |
+| Gọi hàm trực tiếp | Không thể | Có thể |
+
+- Ví dụ về khả năng gọi hàm trực tiếp
+```Java
+String s = "TYP";
+System.out.print(s.length());
+```
+
+- Các wrapper class cho các kiểu nguyên thuỷ
+  
+| Nguyên thuỷ | Wrapper Class |
+|---|---|
+| `byte` | `Byte` |
+| `short` | `Short` |
+| `int` | `Integer` |
+| `long` | `Long` |
+| `float` | `Float` |
+| `double` | `Double` |
+| `char` | `Character` |
+| `boolean` | `Boolean` |
+
+Java có thể tự động chuyển đổi giữa wrapper class và kiểu nguyên thuỷ.
+
+```Java
+Integer x = 20;             // Integer x = Integer.valueOf(20);
+int y = x * 2;              // int y = x.intValue() * 2;
+int z = x + y;            
+```
+
+3. ### Sort & Comparator
 - Để sort 1 array trong Java ta dùng
 ```Java
-
-```
-1. ### Set, Map
-   
-### 1. Cài đặt JDK và Netbeans
-### 2. Làm quen với kiểu dữ liệu và cú pháp
-#### a. Input, output, khai báo cơ bản
-```Java
-// Cách comment tương tự với C++ 
-Scanner sc = new Scanner(System.in);
-int a = sc.nextInt();
-System.out.print("Ham print co kha nang noi string " + a + "\n");
-System.out.println("TYP");
-System.out.printf("%s", "printf dung dac ta nhu C");
-```
-#### b. Kiểu dữ liệu
-
-- Cách khai báo biến tương tự như C++
-- Ở đây các kiểu dữ liệu gần tương tự với C++ nên em sẽ không đi quá sâu vào nữa (int, long long - long, int, float, double, bool - boolean, String).
-- Ép kiểu long ta dùng dùng 1L, dùng (long), (int), (float), ...
-- Java sẽ không tự động ép từ kiểu dữ liệu có độ chính xác lớn hơn -> kiểu dữ liệu có độ chính xác bé hơn.
-```Java
-int t = 1.0; // Error
-int t1 = (int) 1.0 // Working
-```
-- Với const ta define như sau:
-```Java
-final int MOD = (int)1e9 + 7;
-```
-#### c. Câu lệnh điều kiện - toán tử logic
-- Java không cho phép sử dụng 0 - 1 thay cho boolean, bắt buộc dùng ```false``` và ```true```
-- ```if```, ```else```, ```else if```, toán tử 3 ngôi, ```switch case``` hoàn toàn tương tự với C++.
-- Một vài hàm toán thường dùng như ```max```, ```min```, ```sqrt```, ```pow```, ```abs```, ```round```, ```ceil```, ```floor```.
-```Java
-System.out.print(Math.sqrt(2));
-```
-#### d. Mảng 1 chiều, 2 chiều
-- Java sử dụng 0-index array
-- Cách khai báo mảng 1 chiều trong Java
-```Java
-int[] prime = {2, 3, 5, 7};
-
-Scanner sc = new Scanner(System.in);
-
-int[] arr = new int[4]; 
-for(int i = 0; i < 3; ++i)
-    arr[i] = sc.nextInt();
+int[] arr = {5, 4, 2, 1, 3};
+Arrays.sort(arr);
+// arr = {1, 2, 3, 4, 5}
 ```
 
-#### e. Vòng lặp
-- Hoàn toàn tương tự với C++, ```for```, ```while```, ```do-while```, ```break```, ```continue```, ...
+- Tuy nhiên với cách này, ta chỉ có thể sort ascending, để sort tuỳ ý ta cần dùng đến các comparator. Nhưng với các kiểu dữ liệu nguyên thuỷ thì ta không thể dùng comparator.
+- Các cách sử dụng comparator trong Java
+1. Biểu thức Lambda
+2. Anonymous class
 
-#### f. Hàm
-
-- Nếu chưa đi sâu vào OOP thì ta có thể dùng hàm 1 cách đơn giản như sau, trong cùng 1 class
 ```Java
-public class testJava 
+var arr = new Integer[5]; 
+arr[0] = 3;
+arr[1] = 7;
+arr[2] = 1;
+arr[3] = 2;
+arr[4] = 125;
+// Lambda
+Comparator<Integer> acs = (a, b) -> a - b;
+// Anonymous class
+Comparator<Integer> desc = new Comparator<Integer>() 
 {
-    public static boolean isPrime(int a)
+    @Override
+    public int compare(Integer a, Integer b) 
     {
-        for(int i = 2; i * i <= a; ++i)
-            if(a % i == 0)
-                return false;
-        return a > 1;
+        return b - a;
     }
-    
-    public static void main(String[] args) 
-    {
-        Scanner sc = new Scanner(System.in);
-        int a = sc.nextInt();
-        System.out.println(isPrime(a) ? "YES" : "NO");
-    }
-}
+};
+
+Arrays.sort(arr, acs);
+Arrays.sort(arr, desc);
 ```
-D25 chưa học OOP nên trên codePTIT chưa cấp bài ạ.
+```int compare(T o1, T o2)``` trả về 1 trong 3 giá trị:
+| Giá trị | Ý nghĩa |
+| --- | ---|
+|`-1` | o1 đứng trước o2 |
+| `0` | o1 == o2 |
+| `1` | o2 đứng trước o1 |
 
-## Phần 2: Database (Thiết kế lược đồ E-R)
-### 1. Các khái niệm
-#### a. Entity
-- Entity (thực thể) là các đối tượng được miêu tả qua data, ví dụ *Nhân viên*, *Khách hàng*, *Công ty*, được miêu tả trong ERD bằng hình chữ nhật.
-- Strong entity (thực thể mạnh) là loại thực thể có 1 thuộc tính key, thực thể mạnh tồn tại riêng biệt.
-- Weak entity (thực thể yếu) là loại thực thể không có thuộc tính key, sự tồn tại phụ thuộc vào 1 strong entity, được ký hiệu bằng hình chữ nhật đôi.
-- Entity set (tập thực thể) là tập các thực thể có chung kiểu, ví dụ tập *D25* chứa các thực thể có chung kiểu *sinh viên*.
+4. ### HashSet, LinkedHashSet, TreeSet
+- Cách khai báo tổng quát
+```Java
+HashSet<T> name = new HashSet<>();
+Set<T> name = new HashSet<>();
+var name = new HashSet<>();
+```
+- Cách khai báo với custom comparator đối với TreeSet
+```Java
+Set<T> name = new TreeSet<>(comparator_name);
+```
+
+- Cách duyệt bằng Range-Based For loop
+```Java
+for(Integer x : se)
+    System.out.print(x + " ");
+```
+
+- Điểm chung của 3 kiểu Set là với mỗi giá trị chỉ xuất duy nhất 1 lần, đồng thời các Set đều được dựa trên các CTDL nên tốc độ các hàm tìm kiếm sẽ rất nhanh.
+
+| | HashSet | LinkedHashSet | TreeSet |
+| --- | --- | --- | --- |
+| Thứ tự | Không | Thứ tự nhập vào | Thứ tự tăng dần |
+| Tốc độ tìm kiếm | O(1) | O(1) | O(logN)
+
+- Các hàm chung giữa 3 loại Set
+
+| | |
+| --- | --- |
+| `add(x)` | Thêm phần tử x vào set, nếu đã tồn tại hàm trả về false. |
+| `remove(x)` | Xoá phần tử x khỏi set. |
+| `contains(x)` | Trả về true nếu phần tử x tồn tại trong set. |
+| `clear()` | Xoá toàn bộ phần tử. |
+| `isEmpty()` | Check set rỗng. |
+| `size()` | Trả về size của set. |
+
+- Một số hàm thường dùng riêng cho TreeSet
+
+| | |
+| --- | --- |
+| `first()` | Trả về phần tử đầu tiên. |
+| `last()` | Trả về phần tử cuối cùng. |
+| `floor(x)` | Trả về phần tử lớn nhất >= x, trả về null nếu không tồn tại. |
+| `ceil(x)` | Trả về phần tử bé nhất <= x, trả về null nếu không tồn tại |
+| `higher(x)` | Trả về phần tử lớn nhất > x, trả về null nếu không tồn tại. |
+| `lower(x)` | Trả về phần tử bé nhất < x, trả về null nếu không tồn tại |
+
+Lưu ý: Các hàm trên sẽ trả theo thứ tự được định nghĩa bởi comparator. 
+
+5. ### HashMap, LinkedHashMap, TreeMap
+- Sự khác biệt giữa ba loại Map tương tự giống như sự khác biệt giữa ba loại Set.
+- Cách khai báo tổng quát
   
-<p align="center">
-<img align="center" src="res/1.svg">
-</p>
-
-#### b. Attribute
-- Attribute (thuộc tính) là các đặc tính, đặc điểm của một entity, ví dụ với *Sinh viên*, ta có các attribute như *Mã SV*, *Số CCCD*, *Họ và tên*, *Ngày sinh*,... Attribute được miêu tả trong ERD bằng hình oval
-- Key attribute có thể dùng để phân biệt đôi một các entity trong một entity set, thuộc tính key phải đảm bảo giá trị unique giữa các thực thể. Ví dụ *Số CCCD* là thuộc tính key cho entity set chứa toàn bộ người VN. Được ký hiệu bằng hình oval, với tên được gạch dưới.
-- Composite attribute (thuộc tính phức) được cấu thành từ nhiều thuộc tính con nhỏ hơn. 
-- Multivalued attribute là loại thuộc tính có thể đồng thời chứa nhiều giá trị trên một thực thể như *SDT*, được ký hiệu bằng hình oval đôi.
-- Derived attribute (thuộc tính phái sinh) là thuộc tính mà giá trị của nó có thể được suy ra từ thuộc tính khác, ví dụ *tuổi* được suy ra từ *ngày sinh*, được ký hiệu bằng hình oval nét đứt.
-
-<p align="center">
-<img align="center" src="res/2.svg">
-</p>
-<br><br><br>
-<p align="center">
-<img align="center" src="res/3.svg">
-</p>
-
-#### c. Relationship
-- Relationship (quan hệ) thể hiện sự liên kết giữa các thực thể, được ký hiệu bằng hình thoi.
-
-<p align="center">
-<img align="center" src="res/4.svg">
-</p>
-
-- Weak relationship (quan hệ yếu), là quan hệ giữa thực thể yếu, và thực thể mà nó phụ thuộc, ký hiệu bằng hình thoi đôi.
+```Java
+Map<keyT, valueT> name = new HashMap<>();
+```
+- Khai báo TreeMap với custom comparator tương tự, lưu ý chỉ compare giữa key.
   
-<p align="center">
-<img align="center" src="res/5.svg">
-</p>
+- Cách duyệt
+```Java
+for(Map.Entry<Integer, Integer> p : mp.entrySet())
+    System.out.println(p.getKey() + " " + p.getValue());
+```
 
-- Tập quan hệ là tập hợp các quan hệ cùng loại giữa các tập thực thể.
-##### i. Degree of a Relationship Set
+- Các hàm chung giữa 3 loại map
 
-1. Quan hệ đệ quy
-   - Là loại quan hệ chỉ có 1 loại thực thể tham gia.
+| | |
+| --- | --- |
+| `put(x, y)` | Đặt phần tử cặp giá trị (x, y) vào map. |
+| `replace(x, y)` | Đặt phần tử cặp giá trị (x, y) vào map với điều kiện đã có phần tử có key là x. |
+| `get(x)` | Trả về value của key x. |
+| `containsKey(x)` | Trả về true nếu key x tồn tại trong set. |
+| `containsValue(x)` | Trả về true nếu value x tồn tại trong set O(N). |
+| `remove(x)` | Xoá cặp phần tử có key x. |
+| `clear()` | Xoá toàn bộ phần tử. |
+| `isEmpty()` | Check map rỗng. |
+| `size()` | Trả về size của map. |
 
-<p align="center">
-<img align="center" src="res/6.svg">
-</p>
+- Các hàm riêng cho TreeSet
+  
+| | |
+| --- | --- |
+| `firstKey()` | Trả về key của phần tử đầu tiên. |
+| `lastKey()` | Trả về key của phần tử cuối cùng. |
+| `floorKey(x)` | Trả về phần tử có key lớn nhất >= x, trả về null nếu không tồn tại. |
+| `ceilKey(x)` | Trả về phần tử có key bé nhất <= x, trả về null nếu không tồn tại |
+| `higherKey(x)` | Trả về phần tử có key lớn nhất > x, trả về null nếu không tồn tại. |
+| `lowerKey(x)` | Trả về phần tử có key bé nhất < x, trả về null nếu không tồn tại |
+| `firstEntry()` | Trả về Entry của phần tử đầu tiên. | 
 
-2. Quan hệ nhị phân
-   - Là loại quan hệ có 2 loại thực thể đồng thời tham gia.
-   
-<p align="center">
-<img align="center" src="res/7.svg">
-</p>
-
-1. Quan hệ tam phân (Ternary Relationship)
-   - Tương tự với 2 loại trước đó khi có 3 loại thực thể đồng thời tham gia vào quan hệ.
-
-2. **Quan hệ n-phân (N-ary Relationship)**
-   - Tương tự khi có 3 loại thực thể đồng thời tham gia vào quan hệ ta gọi là tam phân, n loại gọi là n-phân.
-#### d. Cardinality
-- Cardinality (bản số) là số lần mà loại thực thể đó được tham gia tối đa trong quan hệ.
-1. Quan hệ 1 - 1
-   - Ví dụ mỗi sinh viên chỉ được cấp một thẻ sinh viên, và thẻ sinh viên đó cũng chỉ sẽ được cấp cho một người duy nhất.
-
-<p align="center">
-<img align="center" src="res/8.svg">
-</p>
-
-2. Quan hệ 1 - n
-- Ví dụ một khoa có thể có nhiều giáo viên, nhưng mỗi giáo viên chỉ được thuộc duy nhất một khoa.
-
-<p align="center">
-<img align="center" src="res/9.svg">
-</p>
-
-1. Quan hệ n - 1.
-- Ví dụ nhiều một lớp học có thể được dạy bởi 1 giáo viên.
-
-<p align="center">
-<img align="center" src="res/10.svg">
-</p>
+mỗi hàm suffix ...Key, có 1 hàm suffix ...Entry tương ứng.
 
 
-1. Quan hệ n - n.
-- Một lớp có thể được tham gia bởi nhiều sinh viên, một sinh viên cũng có thể tham gia nhiều lớp.
-
-<p align="center">
-<img align="center" src="res/11.svg">
-</p>
-
-
-##### e. Ràng buộc tham gia
-- Tham gia toàn phần là khi toàn bộ thực thể trong tập thực thể đều tham gia vào quan hệ đó. Được biểu diễn bằng đường nối đôi.
-
-<p align="center">
-<img align="center" src="res/12.svg">
-</p>
-
-- Tham gia một phần là khi thực thể bất kì trong tập thực thể có thể tham gia, hoặc không tham gia vào quan hệ.
-
-### 2. ERD của tiệm hoa Offline
-
-<p align="center">
-<img align="center" src="res/final.svg">
-</p>
-
-#### Giải thích:
-1. Quan hệ 1-n giữa Khách hàng và Đơn hàng vì mỗi đơn hàng chỉ thuộc về 1 khách hàng, 1 khách hàng có thể sở hữu nhiều đơn hàng. Quan hệ n-n dành cho quan hệ Đơn hàng và Hoa vì 1 đơn hàng có thể chứa nhiều loại hoa, và 1 loại hoa có thể đồng thời có trong nhiều đơn hàng (với điều kiện là còn đủ hàng).
-2. Tổng tiền là thuộc tính phái sinh do có thể tính ra từ đơn giá và số lượng. SĐT là thuộc tính multivalued
-
-#### Hạn chế của ERD này
-1. Hơi oversimplify.
-2. Chưa có cơ chế rõ ràng cho việc ghi lại chi tiết đơn hàng.
+# Phần 2: Database (Thiết kế lược đồ E-R)
+![alt text](assets/3-1.svg)
 ---
 
 Em viết file này dựa trên quá trình tự tìm hiểu các tài liệu nước ngoài kết hợp với hỗ trợ từ AI. Vì kiến thức tự học đôi khi còn hạn chế, em rất mong nhận được những nhận xét từ anh/chị để hoàn thiện hơn. Cảm ơn anh/chị đã review bài cho em. Hy vọng sớm có dịp được cộng tác và học hỏi thêm từ anh/chị!
